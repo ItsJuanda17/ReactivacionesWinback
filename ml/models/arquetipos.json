@@ -1,0 +1,42 @@
+[
+  {
+    "id": 0,
+    "nombre": "Precio-sensible reciente",
+    "total_prospectos": 547,
+    "prob_media": 0.554,
+    "edad_media": 47.3,
+    "antiguedad_media": 107.9,
+    "motivo_frecuente": "precio",
+    "plan_frecuente": "basico"
+  },
+  {
+    "id": 1,
+    "nombre": "Fiel defraudado",
+    "total_prospectos": 431,
+    "prob_media": 0.578,
+    "edad_media": 51.7,
+    "antiguedad_media": 80.3,
+    "motivo_frecuente": "traslado",
+    "plan_frecuente": "basico"
+  },
+  {
+    "id": 2,
+    "nombre": "Migrador involuntario",
+    "total_prospectos": 443,
+    "prob_media": 0.639,
+    "edad_media": 52.4,
+    "antiguedad_media": 79.1,
+    "motivo_frecuente": "precio",
+    "plan_frecuente": "premium"
+  },
+  {
+    "id": 3,
+    "nombre": "Alto valor recuperable",
+    "total_prospectos": 579,
+    "prob_media": 0.334,
+    "edad_media": 50.8,
+    "antiguedad_media": 32.5,
+    "motivo_frecuente": "precio",
+    "plan_frecuente": "basico"
+  }
+]
