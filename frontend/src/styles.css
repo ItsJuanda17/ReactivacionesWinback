@@ -136,11 +136,13 @@ p { margin: 0; }
   font-size: 12px;
   font-weight: 700;
 }
-.badge-diamante { background: #e0f2fe; color: var(--diamante); }
-.badge-oro { background: #fef3c7; color: var(--oro); }
-.badge-plata { background: var(--slate-100); color: var(--plata); }
-.badge-bronce { background: #fef0e0; color: var(--bronce); }
 .badge-prob { background: var(--green-100); color: var(--green-700); }
+
+/* Prioridad comercial */
+.p-alta { background: #dcfce7; color: #15803d; }
+.p-media { background: #fef3c7; color: #b45309; }
+.p-seguimiento { background: #e0f2fe; color: #0369a1; }
+.p-baja { background: var(--slate-100); color: var(--slate-500); }
 
 .chip {
   display: inline-block;
@@ -283,3 +285,81 @@ table.data tbody tr:hover { background: var(--green-50); }
 .opt-btn:hover { background: var(--green-600); color: #fff; }
 
 .loading { color: var(--slate-400); padding: 40px; text-align: center; }
+
+/* ---------- Hero stats (panel agregado) ---------- */
+.hero-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 16px 18px; }
+.hs-value { font-size: 22px; font-weight: 800; color: var(--green-700); }
+.hs-label { font-size: 12px; color: var(--slate-500); font-weight: 600; }
+
+/* ---------- Timeline de proceso ---------- */
+.timeline {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 14px;
+  counter-reset: step;
+}
+.step {
+  position: relative;
+  background: #fff;
+  border: 1px solid var(--slate-200);
+  border-radius: var(--radius);
+  padding: 18px 16px;
+  box-shadow: var(--shadow-sm);
+}
+.step::after {
+  content: "→";
+  position: absolute;
+  right: -12px; top: 24px;
+  color: var(--green-500);
+  font-weight: 800;
+}
+.step:last-child::after { content: ""; }
+.step-num {
+  width: 30px; height: 30px; border-radius: 9px;
+  background: var(--green-600); color: #fff;
+  display: grid; place-items: center; font-weight: 800; margin-bottom: 10px;
+}
+.step h3 { font-size: 14px; margin-bottom: 6px; }
+.step p { font-size: 13px; color: var(--slate-500); }
+@media (max-width: 960px) {
+  .timeline { grid-template-columns: 1fr 1fr; }
+  .step::after { content: ""; }
+}
+
+/* ---------- Dashboard: jerarquía ---------- */
+.dash-hero { display: grid; grid-template-columns: 1.1fr 1.9fr; gap: 16px; }
+.kpi-feature {
+  background: linear-gradient(140deg, var(--green-600), var(--green-900));
+  color: #fff; border-radius: var(--radius); padding: 26px;
+  box-shadow: var(--shadow-lg); display: flex; flex-direction: column; justify-content: center;
+}
+.kpi-feature .label { font-size: 14px; font-weight: 600; opacity: 0.9; }
+.kpi-feature .value { font-size: 38px; font-weight: 800; margin: 8px 0; letter-spacing: -0.02em; }
+.kpi-feature .ctx { font-size: 13px; opacity: 0.85; line-height: 1.5; }
+.kpi-secondary { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.kpi .ctx { font-size: 12px; color: var(--slate-500); margin-top: 6px; line-height: 1.4; }
+
+.grid-2-asym { display: grid; grid-template-columns: 1.5fr 1fr; gap: 16px; }
+@media (max-width: 860px) {
+  .dash-hero, .kpi-secondary, .grid-2-asym, .hero-stats { grid-template-columns: 1fr; }
+}
+
+/* ---------- Bar list ---------- */
+.barlist { display: flex; flex-direction: column; gap: 11px; margin-top: 6px; }
+.barlist-row { display: flex; align-items: center; gap: 12px; }
+.barlist-label { width: 96px; font-size: 13px; font-weight: 600; color: var(--slate-700); }
+.barlist-track { flex: 1; height: 10px; background: var(--slate-100); border-radius: 999px; overflow: hidden; }
+.barlist-track > span { display: block; height: 100%; border-radius: 999px; background: linear-gradient(90deg, var(--green-500), var(--green-700)); }
+.barlist-val { width: 36px; text-align: right; font-weight: 700; font-size: 13px; color: var(--green-700); }
+.fill-p-alta { background: #22c55e !important; }
+.fill-p-media { background: #f59e0b !important; }
+.fill-p-seguimiento { background: #0ea5e9 !important; }
+.fill-p-baja { background: var(--slate-400) !important; }
+
+/* ---------- Insights ---------- */
+.insight-list { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 6px; }
+.insight { display: flex; gap: 12px; padding: 14px; background: var(--green-50); border-radius: 12px; }
+.insight-mark { width: 4px; border-radius: 999px; background: var(--green-600); flex-shrink: 0; }
+.insight-title { font-weight: 700; font-size: 14px; margin-bottom: 4px; }
+.insight-detail { font-size: 13px; color: var(--slate-700); line-height: 1.5; }
+@media (max-width: 700px) { .insight-list { grid-template-columns: 1fr; } }
