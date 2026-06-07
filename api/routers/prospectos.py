@@ -43,7 +43,7 @@ def listar_prospectos(
 
 @router.get("/resumen")
 def resumen_kpis():
-    """KPIs agregados para el dashboard ejecutivo."""
+    """KPIs de impacto comercial para el tablero principal."""
     conn = _conn()
     total = conn.execute("SELECT COUNT(*) AS c FROM prospectos").fetchone()["c"]
     alta = conn.execute(
@@ -52,7 +52,8 @@ def resumen_kpis():
     ).fetchone()["c"]
     prob_media = conn.execute("SELECT AVG(prob_reactivacion) AS p FROM prospectos").fetchone()["p"]
     valor_recuperable = conn.execute(
-        "SELECT COALESCE(SUM(valor_plan_cop), 0) AS v FROM prospectos WHERE segmento IN ('diamante','oro')"
+        "SELECT COALESCE(SUM(valor_plan_cop), 0) AS v FROM prospectos WHERE prob_reactivacion >= ?",
+        (PUNTO_DE_CORTE,),
     ).fetchone()["v"]
     por_segmento = {
         r["segmento"]: r["c"]
@@ -60,6 +61,25 @@ def resumen_kpis():
             "SELECT segmento, COUNT(*) AS c FROM prospectos GROUP BY segmento"
         ).fetchall()
     }
+
+    # Oportunidades de recuperación por ciudad (prospectos priorizables)
+    por_ciudad = [
+        {"ciudad": r["ciudad"], "oportunidades": r["c"]}
+        for r in conn.execute(
+            "SELECT ciudad, COUNT(*) AS c FROM prospectos WHERE prob_reactivacion >= ? "
+            "GROUP BY ciudad ORDER BY c DESC LIMIT 8",
+            (PUNTO_DE_CORTE,),
+        ).fetchall()
+    ]
+
+    # Efectividad de la gestión comercial histórica
+    g_total = conn.execute("SELECT COUNT(*) AS c FROM gestiones_reactivacion").fetchone()["c"]
+    g_efectivas = conn.execute(
+        "SELECT COUNT(*) AS c FROM gestiones_reactivacion WHERE resultado IN ('interesado','reactivado')"
+    ).fetchone()["c"]
+    contactados = conn.execute(
+        "SELECT COUNT(DISTINCT prospecto_id) AS c FROM gestiones_reactivacion"
+    ).fetchone()["c"]
     reactivados = conn.execute(
         "SELECT COUNT(DISTINCT prospecto_id) AS c FROM gestiones_reactivacion WHERE resultado = 'reactivado'"
     ).fetchone()["c"]
@@ -72,5 +92,9 @@ def resumen_kpis():
         "prob_media": round(prob_media or 0, 4),
         "valor_recuperable_cop": int(valor_recuperable),
         "reactivados": reactivados,
+        "contactados": contactados,
+        "tasa_contacto_efectiva": round(g_efectivas / g_total, 4) if g_total else 0,
+        "conversion_historica": round(reactivados / contactados, 4) if contactados else 0,
         "por_segmento": por_segmento,
+        "por_ciudad": por_ciudad,
     }
