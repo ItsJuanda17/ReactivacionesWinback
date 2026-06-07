@@ -77,7 +77,6 @@ API Docs (Swagger): http://localhost:8000/docs
 
 ```
 winback-mvp/
-├── .claude/         # Plan maestro e instrucciones para Claude Code
 ├── data/            # Generador de datos sintéticos + SQLite
 ├── ml/              # Entrenamiento, clustering y explicabilidad
 ├── api/             # FastAPI (routers: prospectos, metricas, arquetipos, chatbot)
