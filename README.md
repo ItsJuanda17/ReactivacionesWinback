@@ -54,11 +54,12 @@ python -m venv venv
 venv\Scripts\activate          # Windows
 pip install -r api/requirements.txt
 
-# 2. Generar datos y entrenar modelos
-python data/generate_synthetic.py
-python ml/train_models.py
-python ml/clustering.py
-python ml/explainability.py
+# 2. Generar datos, consolidar y entrenar modelos
+python data/generate_synthetic.py     # 6 tablas sintéticas
+python ml/build_features.py           # dataset analítico consolidado (RF-01)
+python ml/train_models.py             # entrena y compara modelos (RF-02)
+python ml/clustering.py               # arquetipos con estrategia (RF-03)
+python ml/explainability.py           # importancia SHAP (RF-05)
 
 # 3. Levantar API
 cd api && uvicorn main:app --reload --port 8000
@@ -84,4 +85,7 @@ winback-mvp/
 └── README.md
 ```
 
-Consulta `.claude/MVP_Winback_Coomeva.md` para el plan de arquitectura completo.
+Frontend (multipágina): Landing · Dashboard (KPIs, comparación de modelos, ranking
+con filtros) · Arquetipos · Modelo (métricas, SHAP, ficha técnica) · Chatbot.
+
+Documentación metodológica completa (RF-05) en `docs/METODOLOGIA.md`.
