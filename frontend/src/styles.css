@@ -251,7 +251,6 @@ table.data tbody tr:hover { background: var(--green-50); }
 }
 .feature h3 { font-size: 16px; margin-bottom: 6px; }
 .feature p { color: var(--slate-500); font-size: 14px; }
-.feature .rf { font-size: 11px; font-weight: 800; color: var(--green-600); letter-spacing: 0.04em; }
 
 .list-clean { list-style: none; padding: 0; margin: 10px 0 0; }
 .list-clean li { display: flex; gap: 8px; padding: 5px 0; color: var(--slate-700); font-size: 14px; }

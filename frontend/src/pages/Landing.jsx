@@ -1,12 +1,12 @@
 import { Link } from "react-router-dom";
 
 const FEATURES = [
-  { rf: "RF-01", ic: "🎯", t: "Modelo predictivo", d: "Probabilidad de reactivación por prospecto integrando 6 fuentes de información histórica." },
-  { rf: "RF-02", ic: "⚖️", t: "Comparación de modelos", d: "LogReg, Random Forest y XGBoost evaluados con Accuracy, Precision, Recall, F1 y AUC." },
-  { rf: "RF-03", ic: "🧩", t: "Arquetipos accionables", d: "Segmentación K-Means con estrategia diferencial y recomendaciones de mercadeo." },
-  { rf: "RF-04", ic: "💬", t: "Chatbot de prospección", d: "Flujo winback de 5 etapas: contacto, datos, calentamiento, interés y entrega al asesor." },
-  { rf: "RF-05", ic: "🔍", t: "Explicabilidad SHAP", d: "Importancia de variables y documentación metodológica completa del modelo." },
-  { rf: "MVP", ic: "⚡", t: "100% operable", d: "Stack open source desplegable local o en la nube, sin costo de licencias." },
+  { ic: "🎯", t: "Modelo predictivo", d: "Probabilidad de reactivación por prospecto integrando 6 fuentes de información histórica." },
+  { ic: "⚖️", t: "Comparación de modelos", d: "LogReg, Random Forest y XGBoost evaluados con Accuracy, Precision, Recall, F1 y AUC." },
+  { ic: "🧩", t: "Arquetipos accionables", d: "Segmentación K-Means con estrategia diferencial y recomendaciones de mercadeo." },
+  { ic: "💬", t: "Chatbot de prospección", d: "Flujo winback de 5 etapas: contacto, datos, calentamiento, interés y entrega al asesor." },
+  { ic: "🔍", t: "Explicabilidad del modelo", d: "Importancia de variables con SHAP y documentación metodológica completa." },
+  { ic: "⚡", t: "100% operable", d: "Stack open source desplegable local o en la nube, sin costo de licencias." },
 ];
 
 export default function Landing() {
@@ -54,12 +54,11 @@ export default function Landing() {
 
       <section className="features">
         <h2>Una solución para toda la estrategia de reactivación</h2>
-        <p className="sub">Cubre los requerimientos funcionales del MP-FT-1358 de punta a punta.</p>
+        <p className="sub">Cubre toda la estrategia de reactivación de punta a punta.</p>
         <div className="grid grid-cards">
           {FEATURES.map((f) => (
             <div className="feature" key={f.t}>
               <div className="ic">{f.ic}</div>
-              <div className="rf">{f.rf}</div>
               <h3>{f.t}</h3>
               <p>{f.d}</p>
             </div>

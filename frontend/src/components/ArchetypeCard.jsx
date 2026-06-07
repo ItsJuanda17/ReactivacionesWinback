@@ -1,6 +1,6 @@
 import { pct, COP } from "../api.js";
 
-// RF-03 — Tarjeta de arquetipo con estrategia y recomendaciones
+// Tarjeta de arquetipo con estrategia y recomendaciones
 export default function ArchetypeCard({ arquetipo: a }) {
   return (
     <div className="card" style={{ display: "flex", flexDirection: "column", gap: 12 }}>

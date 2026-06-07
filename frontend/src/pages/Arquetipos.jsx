@@ -15,7 +15,7 @@ export default function Arquetipos() {
       <div className="page-head">
         <h1>Arquetipos accionables</h1>
         <p className="subtitle">
-          Segmentación K-Means con estrategia diferencial de contacto y recomendaciones de mercadeo (RF-03)
+          Segmentación K-Means con estrategia diferencial de contacto y recomendaciones de mercadeo
         </p>
       </div>
 

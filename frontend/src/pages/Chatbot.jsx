@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { api } from "../api.js";
 
-// RF-04 — UI estilo WhatsApp para el flujo winback simulado
+// UI estilo WhatsApp para el flujo winback simulado
 export default function Chatbot() {
   const [mensajes, setMensajes] = useState([]);
   const [opciones, setOpciones] = useState([]);
@@ -43,7 +43,7 @@ export default function Chatbot() {
     <div className="page">
       <div className="page-head" style={{ textAlign: "center" }}>
         <h1>Chatbot de prospección</h1>
-        <p className="subtitle">Flujo Winback: contacto → datos → calentamiento → interés → entrega al asesor (RF-04)</p>
+        <p className="subtitle">Flujo Winback: contacto → datos → calentamiento → interés → entrega al asesor</p>
       </div>
 
       <div className="chat-shell">

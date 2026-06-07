@@ -35,7 +35,7 @@ export default function Layout() {
       </main>
 
       <footer className="footer">
-        Winback MVP · Coomeva Medicina Prepagada · Requerimiento MP-FT-1358 · Proveedor ICESI
+        Winback · Coomeva Medicina Prepagada · Estrategia de reactivación
       </footer>
     </>
   );

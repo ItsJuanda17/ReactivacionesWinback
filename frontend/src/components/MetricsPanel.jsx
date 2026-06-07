@@ -6,7 +6,7 @@ const NOMBRES = {
   xgboost: "XGBoost",
 };
 
-// RF-02 — Comparación de modelos
+// Comparación de modelos
 export default function MetricsPanel({ modelos, modeloFinal }) {
   const data = Object.entries(modelos).map(([k, v]) => ({
     modelo: NOMBRES[k] || k,

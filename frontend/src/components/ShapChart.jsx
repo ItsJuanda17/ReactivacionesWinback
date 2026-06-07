@@ -1,6 +1,6 @@
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid, Cell } from "recharts";
 
-// RF-05 — Importancia de variables (SHAP)
+// Importancia de variables (SHAP)
 export default function ShapChart({ shap, top = 10 }) {
   const data = shap.importancia_variables
     .slice(0, top)

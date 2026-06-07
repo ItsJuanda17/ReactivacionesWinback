@@ -24,7 +24,7 @@ export default function Modelo() {
     <div className="page">
       <div className="page-head">
         <h1>Modelo predictivo</h1>
-        <p className="subtitle">Desempeño, explicabilidad y ficha técnica (RF-01 · RF-02 · RF-05)</p>
+        <p className="subtitle">Desempeño, explicabilidad y ficha técnica del modelo</p>
       </div>
 
       {/* Ficha técnica */}
