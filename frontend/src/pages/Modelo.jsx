@@ -23,8 +23,10 @@ export default function Modelo() {
   return (
     <div className="page">
       <div className="page-head">
-        <h1>Modelo predictivo</h1>
-        <p className="subtitle">Desempeño, explicabilidad y ficha técnica del modelo</p>
+        <h1>Cómo funciona la solución</h1>
+        <p className="subtitle">
+          Ficha metodológica: cómo se priorizan los clientes, qué información se usa y cómo se valida.
+        </p>
       </div>
 
       {/* Ficha técnica */}

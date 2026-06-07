@@ -42,8 +42,8 @@ export default function Chatbot() {
   return (
     <div className="page">
       <div className="page-head" style={{ textAlign: "center" }}>
-        <h1>Chatbot de prospección</h1>
-        <p className="subtitle">Flujo Winback: contacto → datos → calentamiento → interés → entrega al asesor</p>
+        <h1>Asistente comercial</h1>
+        <p className="subtitle">Acompaña el primer contacto de reactivación: atracción, datos, interés y entrega al asesor</p>
       </div>
 
       <div className="chat-shell">

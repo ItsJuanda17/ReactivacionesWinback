@@ -13,9 +13,9 @@ export default function Arquetipos() {
   return (
     <div className="page">
       <div className="page-head">
-        <h1>Arquetipos accionables</h1>
+        <h1>Segmentos de clientes</h1>
         <p className="subtitle">
-          Segmentación K-Means con estrategia diferencial de contacto y recomendaciones de mercadeo
+          Perfiles de clientes retirados con su estrategia diferencial de contacto y recomendaciones de mercadeo
         </p>
       </div>
 

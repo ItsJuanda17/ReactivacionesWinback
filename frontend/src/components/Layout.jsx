@@ -2,10 +2,10 @@ import { NavLink, Outlet } from "react-router-dom";
 
 const LINKS = [
   { to: "/", label: "Inicio", end: true },
-  { to: "/dashboard", label: "Dashboard" },
-  { to: "/arquetipos", label: "Arquetipos" },
-  { to: "/modelo", label: "Modelo" },
-  { to: "/chatbot", label: "Chatbot" },
+  { to: "/dashboard", label: "Tablero" },
+  { to: "/segmentos", label: "Segmentos" },
+  { to: "/asistente", label: "Asistente" },
+  { to: "/como-funciona", label: "Cómo funciona" },
 ];
 
 export default function Layout() {

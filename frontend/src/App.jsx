@@ -12,9 +12,9 @@ export default function App() {
       <Route element={<Layout />}>
         <Route path="/" element={<Landing />} />
         <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/arquetipos" element={<Arquetipos />} />
-        <Route path="/modelo" element={<Modelo />} />
-        <Route path="/chatbot" element={<Chatbot />} />
+        <Route path="/segmentos" element={<Arquetipos />} />
+        <Route path="/como-funciona" element={<Modelo />} />
+        <Route path="/asistente" element={<Chatbot />} />
       </Route>
     </Routes>
   );
