@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-
-const API = import.meta.env.VITE_API_URL || "http://localhost:8000";
+import { api } from "../api.js";
 
 // RF-04 — UI estilo WhatsApp para el flujo winback simulado
 export default function Chatbot() {
@@ -8,29 +7,21 @@ export default function Chatbot() {
   const [opciones, setOpciones] = useState([]);
   const [estado, setEstado] = useState("inicio");
   const [esFinal, setEsFinal] = useState(false);
-  const fondoRef = useRef(null);
+  const bodyRef = useRef(null);
 
-  // Carga el mensaje inicial al montar
   useEffect(() => {
-    enviar("inicio", null, true);
+    enviar("inicio", null);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
-    fondoRef.current?.scrollTo(0, fondoRef.current.scrollHeight);
+    bodyRef.current?.scrollTo(0, bodyRef.current.scrollHeight);
   }, [mensajes]);
 
-  async function enviar(estadoActual, opcion, esInicio = false) {
-    if (opcion) {
-      setMensajes((m) => [...m, { autor: "user", texto: opcion }]);
-    }
+  async function enviar(estadoActual, opcion) {
+    if (opcion) setMensajes((m) => [...m, { autor: "user", texto: opcion }]);
     try {
-      const r = await fetch(`${API}/chatbot/mensaje`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ estado_actual: estadoActual, opcion_elegida: opcion }),
-      });
-      const data = await r.json();
+      const data = await api.chatbot(estadoActual, opcion);
       setMensajes((m) => [...m, { autor: "bot", texto: data.mensaje }]);
       setOpciones(data.opciones);
       setEstado(data.estado);
@@ -45,85 +36,42 @@ export default function Chatbot() {
     setOpciones([]);
     setEsFinal(false);
     setEstado("inicio");
-    enviar("inicio", null, true);
+    enviar("inicio", null);
   }
 
   return (
-    <div style={{ padding: 24, display: "flex", justifyContent: "center" }}>
-      <div
-        style={{
-          width: 380,
-          height: 600,
-          display: "flex",
-          flexDirection: "column",
-          border: "1px solid #e5e7eb",
-          borderRadius: 16,
-          overflow: "hidden",
-          background: "#ECE5DD",
-        }}
-      >
-        <div style={{ background: "#075E54", color: "#fff", padding: "12px 16px", fontWeight: 600 }}>
-          Asistente Coomeva MP
+    <div className="page">
+      <div className="page-head" style={{ textAlign: "center" }}>
+        <h1>Chatbot de prospección</h1>
+        <p className="subtitle">Flujo Winback: contacto → datos → calentamiento → interés → entrega al asesor (RF-04)</p>
+      </div>
+
+      <div className="chat-shell">
+        <div className="chat-head">
+          <div className="av">◆</div>
+          <div>
+            <div style={{ fontWeight: 700 }}>Asistente Coomeva MP</div>
+            <div style={{ fontSize: 12, opacity: 0.8 }}>en línea</div>
+          </div>
         </div>
 
-        <div ref={fondoRef} style={{ flex: 1, overflowY: "auto", padding: 12 }}>
+        <div className="chat-body" ref={bodyRef}>
           {mensajes.map((m, i) => (
-            <div
-              key={i}
-              style={{
-                display: "flex",
-                justifyContent: m.autor === "user" ? "flex-end" : "flex-start",
-                marginBottom: 8,
-              }}
-            >
-              <div
-                style={{
-                  maxWidth: "75%",
-                  padding: "8px 12px",
-                  borderRadius: 12,
-                  background: m.autor === "user" ? "#DCF8C6" : "#fff",
-                  fontSize: 14,
-                  boxShadow: "0 1px 1px rgba(0,0,0,0.1)",
-                }}
-              >
-                {m.texto}
-              </div>
+            <div key={i} style={{ display: "flex" }}>
+              <div className={"bubble " + (m.autor === "user" ? "user" : "bot")}>{m.texto}</div>
             </div>
           ))}
         </div>
 
-        <div style={{ padding: 12, background: "#f0f0f0", display: "flex", flexWrap: "wrap", gap: 8 }}>
+        <div className="chat-foot">
           {!esFinal &&
             opciones.map((op) => (
-              <button
-                key={op}
-                onClick={() => enviar(estado, op)}
-                style={{
-                  border: "1px solid #075E54",
-                  color: "#075E54",
-                  background: "#fff",
-                  borderRadius: 20,
-                  padding: "6px 14px",
-                  fontSize: 13,
-                  cursor: "pointer",
-                }}
-              >
+              <button key={op} className="opt-btn" onClick={() => enviar(estado, op)}>
                 {op}
               </button>
             ))}
           {esFinal && (
-            <button
-              onClick={reiniciar}
-              style={{
-                border: "none",
-                color: "#fff",
-                background: "#075E54",
-                borderRadius: 20,
-                padding: "6px 14px",
-                fontSize: 13,
-                cursor: "pointer",
-              }}
-            >
+            <button className="btn btn-primary" style={{ width: "100%", justifyContent: "center" }} onClick={reiniciar}>
               Reiniciar conversación
             </button>
           )}
