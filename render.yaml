@@ -2,7 +2,7 @@ services:
   - type: web
     name: winback-api
     env: python
-    buildCommand: pip install -r api/requirements.txt && python data/generate_synthetic.py && python ml/train_models.py && python ml/clustering.py && python ml/explainability.py
+    buildCommand: pip install -r api/requirements.txt && python data/generate_synthetic.py && python ml/build_features.py && python ml/train_models.py && python ml/clustering.py && python ml/explainability.py
     startCommand: cd api && uvicorn main:app --host 0.0.0.0 --port $PORT
     envVars:
       - key: PYTHONUNBUFFERED
