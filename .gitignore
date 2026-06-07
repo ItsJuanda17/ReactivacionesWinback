@@ -1,0 +1,20 @@
+# Base de datos local
+data/winback.db
+data/*.db
+
+# Modelos serializados (pesados, regenerables)
+ml/models/*.pkl
+
+# Entorno Python
+venv/
+__pycache__/
+*.pyc
+.env
+
+# Node
+frontend/node_modules/
+frontend/dist/
+
+# IDE
+.vscode/
+.idea/
