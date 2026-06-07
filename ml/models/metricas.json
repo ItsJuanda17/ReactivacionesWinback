@@ -1,23 +1,78 @@
 {
-  "logistic_regression": {
-    "accuracy": 0.75,
-    "precision": 0.6895,
-    "recall": 0.7616,
-    "f1": 0.7238,
-    "roc_auc": 0.8273
+  "modelos": {
+    "logistic_regression": {
+      "accuracy": 0.7275,
+      "precision": 0.676,
+      "recall": 0.7035,
+      "f1": 0.6895,
+      "roc_auc": 0.7958
+    },
+    "random_forest": {
+      "accuracy": 0.7675,
+      "precision": 0.7047,
+      "recall": 0.7907,
+      "f1": 0.7452,
+      "roc_auc": 0.8551
+    },
+    "xgboost": {
+      "accuracy": 0.7575,
+      "precision": 0.7095,
+      "recall": 0.7384,
+      "f1": 0.7236,
+      "roc_auc": 0.8616
+    }
   },
-  "random_forest": {
-    "accuracy": 0.735,
-    "precision": 0.6719,
-    "recall": 0.75,
-    "f1": 0.7088,
-    "roc_auc": 0.8299
+  "modelo_final": "random_forest",
+  "criterio_seleccion": "Mayor F1-Score sobre el conjunto de prueba",
+  "punto_de_corte": 0.55,
+  "estrategia_balanceo": "SMOTE (oversampling de la clase minoritaria en entrenamiento)",
+  "hiperparametros": {
+    "logistic_regression": {
+      "max_iter": 1000,
+      "C": 1.0,
+      "solver": "lbfgs"
+    },
+    "random_forest": {
+      "n_estimators": 200,
+      "max_depth": 8,
+      "min_samples_leaf": 5,
+      "random_state": 42
+    },
+    "xgboost": {
+      "n_estimators": 300,
+      "max_depth": 4,
+      "learning_rate": 0.1,
+      "subsample": 0.9,
+      "eval_metric": "logloss",
+      "random_state": 42
+    }
   },
-  "xgboost": {
-    "accuracy": 0.7625,
-    "precision": 0.7059,
-    "recall": 0.7674,
-    "f1": 0.7354,
-    "roc_auc": 0.8522
-  }
+  "n_variables": 23,
+  "variables": [
+    "edad",
+    "antiguedad_meses",
+    "valor_plan_cop",
+    "motivo_enc",
+    "plan_enc",
+    "genero_enc",
+    "num_utilizaciones",
+    "valor_utilizaciones_cop",
+    "satisfaccion_media",
+    "nps_promedio",
+    "nps_min",
+    "num_mediciones_nps",
+    "num_manifestaciones",
+    "num_quejas_reclamos",
+    "tasa_resolucion",
+    "siniestralidad_ratio",
+    "ingresos_totales_cop",
+    "num_gestiones",
+    "num_interesado",
+    "utilizaciones_por_anio",
+    "tasa_manifestaciones",
+    "valor_cliente_cop",
+    "ratio_quejas"
+  ],
+  "n_train": 1600,
+  "n_test": 400
 }

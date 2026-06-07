@@ -2,41 +2,125 @@
   {
     "id": 0,
     "nombre": "Precio-sensible reciente",
-    "total_prospectos": 547,
-    "prob_media": 0.554,
-    "edad_media": 47.3,
-    "antiguedad_media": 107.9,
+    "total_prospectos": 490,
+    "prob_media": 0.652,
+    "edad_media": 49.3,
+    "antiguedad_media": 108.1,
+    "nps_medio": 2.3,
+    "siniestralidad_media": 0.68,
+    "valor_cliente_medio": 42851673,
     "motivo_frecuente": "precio",
-    "plan_frecuente": "basico"
+    "plan_frecuente": "medio",
+    "variables_relevantes": [
+      {
+        "variable": "valor del cliente",
+        "tendencia": "alta"
+      },
+      {
+        "variable": "plan",
+        "tendencia": "alta"
+      },
+      {
+        "variable": "antigüedad",
+        "tendencia": "alta"
+      }
+    ],
+    "estrategia_recomendada": "Oferta de reingreso con descuento temporal y plan ajustado a su capacidad de pago.",
+    "canal_sugerido": "WhatsApp + llamada de cierre",
+    "recomendacion_mercadeo": "Comunicar valor/precio y beneficios diferenciales frente a la competencia.",
+    "prioridad": "media"
   },
   {
     "id": 1,
     "nombre": "Fiel defraudado",
-    "total_prospectos": 431,
-    "prob_media": 0.578,
-    "edad_media": 51.7,
-    "antiguedad_media": 80.3,
-    "motivo_frecuente": "traslado",
-    "plan_frecuente": "basico"
+    "total_prospectos": 542,
+    "prob_media": 0.564,
+    "edad_media": 50.2,
+    "antiguedad_media": 104.1,
+    "nps_medio": 2.5,
+    "siniestralidad_media": 0.65,
+    "valor_cliente_medio": 19823948,
+    "motivo_frecuente": "precio",
+    "plan_frecuente": "basico",
+    "variables_relevantes": [
+      {
+        "variable": "plan",
+        "tendencia": "baja"
+      },
+      {
+        "variable": "antigüedad",
+        "tendencia": "alta"
+      },
+      {
+        "variable": "uso del servicio",
+        "tendencia": "alta"
+      }
+    ],
+    "estrategia_recomendada": "Reconocimiento de la antigüedad, disculpa por la experiencia y gestor dedicado.",
+    "canal_sugerido": "Llamada de un asesor senior",
+    "recomendacion_mercadeo": "Enfatizar mejoras en servicio y atención prioritaria; resolver fricción previa.",
+    "prioridad": "alta"
   },
   {
     "id": 2,
     "nombre": "Migrador involuntario",
-    "total_prospectos": 443,
-    "prob_media": 0.639,
-    "edad_media": 52.4,
-    "antiguedad_media": 79.1,
-    "motivo_frecuente": "precio",
-    "plan_frecuente": "premium"
+    "total_prospectos": 390,
+    "prob_media": 0.504,
+    "edad_media": 51.7,
+    "antiguedad_media": 44.0,
+    "nps_medio": 2.3,
+    "siniestralidad_media": 0.64,
+    "valor_cliente_medio": 11889794,
+    "motivo_frecuente": "economico",
+    "plan_frecuente": "basico",
+    "variables_relevantes": [
+      {
+        "variable": "motivo de deserción",
+        "tendencia": "alta"
+      },
+      {
+        "variable": "antigüedad",
+        "tendencia": "baja"
+      },
+      {
+        "variable": "valor del cliente",
+        "tendencia": "baja"
+      }
+    ],
+    "estrategia_recomendada": "Plan premium con cobertura ampliada y portabilidad de beneficios.",
+    "canal_sugerido": "Email premium + WhatsApp",
+    "recomendacion_mercadeo": "Resaltar cobertura y red de prestadores superior al competidor actual.",
+    "prioridad": "alta"
   },
   {
     "id": 3,
     "nombre": "Alto valor recuperable",
-    "total_prospectos": 579,
-    "prob_media": 0.334,
-    "edad_media": 50.8,
-    "antiguedad_media": 32.5,
+    "total_prospectos": 578,
+    "prob_media": 0.357,
+    "edad_media": 50.7,
+    "antiguedad_media": 36.3,
+    "nps_medio": 2.4,
+    "siniestralidad_media": 0.68,
+    "valor_cliente_medio": 8861972,
     "motivo_frecuente": "precio",
-    "plan_frecuente": "basico"
+    "plan_frecuente": "basico",
+    "variables_relevantes": [
+      {
+        "variable": "prob. de retorno",
+        "tendencia": "baja"
+      },
+      {
+        "variable": "antigüedad",
+        "tendencia": "baja"
+      },
+      {
+        "variable": "valor del cliente",
+        "tendencia": "baja"
+      }
+    ],
+    "estrategia_recomendada": "Campaña de retención de alto valor con incentivos personalizados.",
+    "canal_sugerido": "Contacto comercial directo",
+    "recomendacion_mercadeo": "Trato preferencial; medir ROI por su valor de cliente histórico.",
+    "prioridad": "alta"
   }
 ]

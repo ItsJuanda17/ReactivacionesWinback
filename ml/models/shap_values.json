@@ -1,31 +1,145 @@
 {
-  "modelo": "xgboost",
+  "modelo": "random_forest",
   "metodo": "TreeExplainer (SHAP)",
   "n_muestras": 2000,
   "importancia_variables": [
     {
+      "feature": "valor_cliente_cop",
+      "label": "Valor del cliente",
+      "mean_abs_shap": 0.0767,
+      "importancia_relativa": 0.1872
+    },
+    {
+      "feature": "ingresos_totales_cop",
+      "label": "Ingresos totales",
+      "mean_abs_shap": 0.0756,
+      "importancia_relativa": 0.1844
+    },
+    {
       "feature": "antiguedad_meses",
       "label": "Antigüedad (meses)",
-      "mean_abs_shap": 2.1832,
-      "importancia_relativa": 0.4448
+      "mean_abs_shap": 0.0571,
+      "importancia_relativa": 0.1393
     },
     {
       "feature": "motivo_enc",
       "label": "Motivo de deserción",
-      "mean_abs_shap": 1.0407,
-      "importancia_relativa": 0.212
+      "mean_abs_shap": 0.0525,
+      "importancia_relativa": 0.1281
+    },
+    {
+      "feature": "valor_plan_cop",
+      "label": "Valor del plan",
+      "mean_abs_shap": 0.0242,
+      "importancia_relativa": 0.0592
+    },
+    {
+      "feature": "tasa_manifestaciones",
+      "label": "Tasa de manifestaciones",
+      "mean_abs_shap": 0.0186,
+      "importancia_relativa": 0.0455
     },
     {
       "feature": "edad",
       "label": "Edad",
-      "mean_abs_shap": 0.8583,
-      "importancia_relativa": 0.1749
+      "mean_abs_shap": 0.0155,
+      "importancia_relativa": 0.0379
+    },
+    {
+      "feature": "utilizaciones_por_anio",
+      "label": "Utilizaciones por año",
+      "mean_abs_shap": 0.0155,
+      "importancia_relativa": 0.0379
+    },
+    {
+      "feature": "valor_utilizaciones_cop",
+      "label": "Valor utilizaciones",
+      "mean_abs_shap": 0.0127,
+      "importancia_relativa": 0.0311
+    },
+    {
+      "feature": "num_utilizaciones",
+      "label": "N.º utilizaciones",
+      "mean_abs_shap": 0.0115,
+      "importancia_relativa": 0.0282
+    },
+    {
+      "feature": "num_gestiones",
+      "label": "N.º gestiones",
+      "mean_abs_shap": 0.0074,
+      "importancia_relativa": 0.018
     },
     {
       "feature": "plan_enc",
       "label": "Plan previo",
-      "mean_abs_shap": 0.8264,
-      "importancia_relativa": 0.1684
+      "mean_abs_shap": 0.0065,
+      "importancia_relativa": 0.0159
+    },
+    {
+      "feature": "satisfaccion_media",
+      "label": "Satisfacción media",
+      "mean_abs_shap": 0.0048,
+      "importancia_relativa": 0.0116
+    },
+    {
+      "feature": "nps_min",
+      "label": "NPS mínimo",
+      "mean_abs_shap": 0.0044,
+      "importancia_relativa": 0.0108
+    },
+    {
+      "feature": "tasa_resolucion",
+      "label": "Tasa de resolución",
+      "mean_abs_shap": 0.004,
+      "importancia_relativa": 0.0098
+    },
+    {
+      "feature": "siniestralidad_ratio",
+      "label": "Siniestralidad (ratio)",
+      "mean_abs_shap": 0.0037,
+      "importancia_relativa": 0.0091
+    },
+    {
+      "feature": "num_interesado",
+      "label": "Gestiones con interés",
+      "mean_abs_shap": 0.0037,
+      "importancia_relativa": 0.0091
+    },
+    {
+      "feature": "nps_promedio",
+      "label": "NPS promedio",
+      "mean_abs_shap": 0.0034,
+      "importancia_relativa": 0.0084
+    },
+    {
+      "feature": "ratio_quejas",
+      "label": "Ratio de quejas",
+      "mean_abs_shap": 0.0033,
+      "importancia_relativa": 0.0081
+    },
+    {
+      "feature": "num_manifestaciones",
+      "label": "N.º manifestaciones",
+      "mean_abs_shap": 0.0029,
+      "importancia_relativa": 0.0071
+    },
+    {
+      "feature": "num_quejas_reclamos",
+      "label": "Quejas y reclamos",
+      "mean_abs_shap": 0.0028,
+      "importancia_relativa": 0.0067
+    },
+    {
+      "feature": "num_mediciones_nps",
+      "label": "N.º mediciones NPS",
+      "mean_abs_shap": 0.0017,
+      "importancia_relativa": 0.0041
+    },
+    {
+      "feature": "genero_enc",
+      "label": "Género",
+      "mean_abs_shap": 0.001,
+      "importancia_relativa": 0.0026
     }
   ]
 }
