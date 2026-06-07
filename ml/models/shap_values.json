@@ -1,0 +1,31 @@
+{
+  "modelo": "xgboost",
+  "metodo": "TreeExplainer (SHAP)",
+  "n_muestras": 2000,
+  "importancia_variables": [
+    {
+      "feature": "antiguedad_meses",
+      "label": "Antigüedad (meses)",
+      "mean_abs_shap": 2.1832,
+      "importancia_relativa": 0.4448
+    },
+    {
+      "feature": "motivo_enc",
+      "label": "Motivo de deserción",
+      "mean_abs_shap": 1.0407,
+      "importancia_relativa": 0.212
+    },
+    {
+      "feature": "edad",
+      "label": "Edad",
+      "mean_abs_shap": 0.8583,
+      "importancia_relativa": 0.1749
+    },
+    {
+      "feature": "plan_enc",
+      "label": "Plan previo",
+      "mean_abs_shap": 0.8264,
+      "importancia_relativa": 0.1684
+    }
+  ]
+}
