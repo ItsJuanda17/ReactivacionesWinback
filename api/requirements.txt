@@ -8,3 +8,4 @@ xgboost>=2.0.0
 imbalanced-learn>=0.12.0
 shap>=0.45.0
 faker>=24.0.0
+pytest>=8.0.0
