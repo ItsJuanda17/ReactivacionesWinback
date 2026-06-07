@@ -1,48 +1,98 @@
 import { useEffect, useState } from "react";
+import { api, COP, pct } from "../api.js";
+import KpiCard from "../components/KpiCard.jsx";
 import MetricsPanel from "../components/MetricsPanel.jsx";
-import ArchetypeCard from "../components/ArchetypeCard.jsx";
 import ProspectTable from "../components/ProspectTable.jsx";
 
-const API = import.meta.env.VITE_API_URL || "http://localhost:8000";
-
 export default function Dashboard() {
+  const [resumen, setResumen] = useState(null);
+  const [metricas, setMetricas] = useState(null);
   const [prospectos, setProspectos] = useState([]);
-  const [metricas, setMetricas] = useState({});
-  const [arquetipos, setArquetipos] = useState([]);
+  const [segmento, setSegmento] = useState("");
+  const [buscar, setBuscar] = useState("");
+  const [error, setError] = useState(false);
 
   useEffect(() => {
-    fetch(`${API}/prospectos?limit=50`).then((r) => r.json()).then(setProspectos).catch(() => {});
-    fetch(`${API}/metricas`).then((r) => r.json()).then(setMetricas).catch(() => {});
-    fetch(`${API}/arquetipos`).then((r) => r.json()).then(setArquetipos).catch(() => {});
+    api.resumen().then(setResumen).catch(() => setError(true));
+    api.metricas().then(setMetricas).catch(() => setError(true));
   }, []);
 
-  return (
-    <div style={{ padding: 24 }}>
-      <h1>Winback MVP — Coomeva MP</h1>
+  // Recarga la tabla cuando cambian los filtros (con pequeño debounce de búsqueda)
+  useEffect(() => {
+    const t = setTimeout(() => {
+      const qs = new URLSearchParams({ limit: "100" });
+      if (segmento) qs.set("segmento", segmento);
+      if (buscar) qs.set("buscar", buscar);
+      api.prospectos(`?${qs}`).then(setProspectos).catch(() => setProspectos([]));
+    }, 250);
+    return () => clearTimeout(t);
+  }, [segmento, buscar]);
 
-      {/* Métricas de modelos RF-02 */}
-      {Object.keys(metricas).length > 0 && <MetricsPanel metricas={metricas} />}
-
-      {/* Arquetipos RF-03 */}
-      <section style={{ marginBottom: 32 }}>
-        <h2>Arquetipos de prospectos</h2>
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
-            gap: 16,
-          }}
-        >
-          {arquetipos.map((a) => (
-            <ArchetypeCard key={a.id} arquetipo={a} />
-          ))}
+  if (error) {
+    return (
+      <div className="page">
+        <div className="card loading">
+          No se pudo conectar con la API. Levanta el backend en <code>{api.base}</code>.
         </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="page">
+      <div className="page-head">
+        <h1>Dashboard de reactivación</h1>
+        <p className="subtitle">Priorización de prospectos y desempeño del modelo · estrategia Winback</p>
+      </div>
+
+      {/* KPIs */}
+      <section className="section grid grid-kpi">
+        {resumen ? (
+          <>
+            <KpiCard label="Prospectos analizados" value={resumen.total_prospectos.toLocaleString("es-CO")} />
+            <KpiCard
+              label="Alta probabilidad"
+              value={resumen.alta_probabilidad.toLocaleString("es-CO")}
+              delta={`${pct(resumen.pct_alta_probabilidad)} del total`}
+              accent
+            />
+            <KpiCard label="Probabilidad media" value={pct(resumen.prob_media)} />
+            <KpiCard label="Valor recuperable" value={COP(resumen.valor_recuperable_cop)} delta="segmentos diamante + oro" />
+            <KpiCard label="Reactivados (histórico)" value={resumen.reactivados.toLocaleString("es-CO")} />
+          </>
+        ) : (
+          <div className="loading">Cargando KPIs…</div>
+        )}
       </section>
 
-      {/* Tabla de prospectos con ranking */}
-      <section>
-        <h2>Ranking de prospectos (Top 50)</h2>
-        <ProspectTable prospectos={prospectos} />
+      {/* Modelo */}
+      <section className="section">
+        {metricas && <MetricsPanel modelos={metricas.modelos} modeloFinal={metricas.modelo_final} />}
+      </section>
+
+      {/* Ranking de prospectos */}
+      <section className="section">
+        <div className="card">
+          <h2>Ranking de prospectos</h2>
+          <p className="hint">Ordenados por probabilidad de reactivación (mayor a menor)</p>
+          <div className="toolbar">
+            <input
+              className="input"
+              placeholder="Buscar por nombre o ciudad…"
+              value={buscar}
+              onChange={(e) => setBuscar(e.target.value)}
+            />
+            <select className="select" value={segmento} onChange={(e) => setSegmento(e.target.value)}>
+              <option value="">Todos los segmentos</option>
+              <option value="diamante">Diamante</option>
+              <option value="oro">Oro</option>
+              <option value="plata">Plata</option>
+              <option value="bronce">Bronce</option>
+            </select>
+            <span style={{ color: "var(--slate-400)", fontSize: 13 }}>{prospectos.length} resultados</span>
+          </div>
+          <ProspectTable prospectos={prospectos} />
+        </div>
       </section>
     </div>
   );

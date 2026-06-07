@@ -1,56 +1,45 @@
-const SEGMENTO_COLOR = {
-  diamante: "#8B5CF6",
-  oro: "#F59E0B",
-  plata: "#6B7280",
-  bronce: "#92400E",
-};
+import { pct } from "../api.js";
 
-// Tabla de ranking de prospectos ordenada por probabilidad de reactivación
 export default function ProspectTable({ prospectos }) {
-  const ordenados = [...prospectos].sort((a, b) => b.prob_reactivacion - a.prob_reactivacion);
-
+  if (!prospectos.length) {
+    return <div className="loading">Sin resultados.</div>;
+  }
   return (
-    <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 13, background: "#fff" }}>
-      <thead>
-        <tr style={{ background: "#f9fafb", textAlign: "left" }}>
-          <th style={{ padding: 8 }}>Nombre</th>
-          <th style={{ padding: 8 }}>Ciudad</th>
-          <th style={{ padding: 8 }}>Plan</th>
-          <th style={{ padding: 8 }}>Antigüedad</th>
-          <th style={{ padding: 8 }}>Probabilidad</th>
-          <th style={{ padding: 8 }}>Segmento</th>
-          <th style={{ padding: 8 }}>Estado</th>
-        </tr>
-      </thead>
-      <tbody>
-        {ordenados.map((p) => (
-          <tr key={p.id} style={{ borderBottom: "1px solid #f3f4f6" }}>
-            <td style={{ padding: 8 }}>{p.nombre_completo}</td>
-            <td style={{ padding: 8 }}>{p.ciudad}</td>
-            <td style={{ padding: 8 }}>{p.plan_previo}</td>
-            <td style={{ padding: 8 }}>{p.antiguedad_meses} m</td>
-            <td style={{ padding: 8 }}>
-              <span style={{ background: "#EDE9FE", padding: "2px 8px", borderRadius: 6 }}>
-                {(p.prob_reactivacion * 100).toFixed(0)}%
-              </span>
-            </td>
-            <td style={{ padding: 8 }}>
-              <span
-                style={{
-                  background: SEGMENTO_COLOR[p.segmento] + "22",
-                  color: SEGMENTO_COLOR[p.segmento],
-                  padding: "2px 8px",
-                  borderRadius: 6,
-                  fontWeight: 600,
-                }}
-              >
-                {p.segmento}
-              </span>
-            </td>
-            <td style={{ padding: 8 }}>{p.estado_gestion}</td>
+    <div className="table-wrap">
+      <table className="data">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Nombre</th>
+            <th>Ciudad</th>
+            <th>Plan</th>
+            <th>Antigüedad</th>
+            <th>Probabilidad</th>
+            <th>Segmento</th>
+            <th>Estado</th>
           </tr>
-        ))}
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          {prospectos.map((p, i) => (
+            <tr key={p.id}>
+              <td style={{ color: "var(--slate-400)" }}>{i + 1}</td>
+              <td style={{ fontWeight: 600 }}>{p.nombre_completo}</td>
+              <td>{p.ciudad}</td>
+              <td style={{ textTransform: "capitalize" }}>{p.plan_previo}</td>
+              <td>{p.antiguedad_meses} m</td>
+              <td>
+                <span className="badge badge-prob">{pct(p.prob_reactivacion)}</span>
+              </td>
+              <td>
+                <span className={`badge badge-${p.segmento}`}>{p.segmento}</span>
+              </td>
+              <td style={{ color: "var(--slate-500)", textTransform: "capitalize" }}>
+                {p.estado_gestion?.replace("_", " ")}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 }
