@@ -1,21 +1,49 @@
-// RF-03 — Tarjeta de arquetipo (cluster K-Means)
-export default function ArchetypeCard({ arquetipo }) {
+import { pct, COP } from "../api.js";
+
+// RF-03 — Tarjeta de arquetipo con estrategia y recomendaciones
+export default function ArchetypeCard({ arquetipo: a }) {
   return (
-    <div style={{ border: "1px solid #e5e7eb", borderRadius: 12, padding: 16, background: "#fff" }}>
-      <h3 style={{ margin: "0 0 8px" }}>{arquetipo.nombre}</h3>
-      <p style={{ margin: 0, color: "#6b7280", fontSize: 13, lineHeight: 1.6 }}>
-        {arquetipo.total_prospectos} prospectos
+    <div className="card" style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "start" }}>
+        <h2 style={{ fontSize: 17 }}>{a.nombre}</h2>
+        <span className={"chip " + (a.prioridad === "alta" ? "prio-alta" : "prio-media")}>
+          {a.prioridad}
+        </span>
+      </div>
+
+      <div style={{ display: "flex", gap: 16, flexWrap: "wrap", fontSize: 13, color: "var(--slate-500)" }}>
+        <span><strong style={{ color: "var(--ink)" }}>{a.total_prospectos}</strong> prospectos</span>
+        <span>Prob. <strong style={{ color: "var(--green-700)" }}>{pct(a.prob_media)}</strong></span>
+        <span>NPS {a.nps_medio}</span>
+      </div>
+
+      <div style={{ fontSize: 13, color: "var(--slate-500)" }}>
+        Edad {a.edad_media} · Antigüedad {a.antiguedad_media}m · {a.motivo_frecuente} · plan {a.plan_frecuente}
         <br />
-        Prob. media: <strong>{(arquetipo.prob_media * 100).toFixed(0)}%</strong>
-        <br />
-        Edad media: {arquetipo.edad_media} años
-        <br />
-        Antigüedad media: {arquetipo.antiguedad_media} m
-        <br />
-        Motivo frecuente: {arquetipo.motivo_frecuente}
-        <br />
-        Plan frecuente: {arquetipo.plan_frecuente}
-      </p>
+        Valor cliente medio: <strong style={{ color: "var(--ink)" }}>{COP(a.valor_cliente_medio)}</strong>
+      </div>
+
+      <div>
+        <div style={{ fontSize: 12, fontWeight: 700, color: "var(--slate-700)", marginBottom: 4 }}>
+          Variables que lo distinguen
+        </div>
+        <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
+          {a.variables_relevantes?.map((v, i) => (
+            <span key={i} className="chip">
+              {v.variable} {v.tendencia === "alta" ? "↑" : "↓"}
+            </span>
+          ))}
+        </div>
+      </div>
+
+      <div style={{ background: "var(--green-50)", borderRadius: 10, padding: 12, fontSize: 13 }}>
+        <div style={{ fontWeight: 700, color: "var(--green-700)", marginBottom: 4 }}>Estrategia</div>
+        <p style={{ color: "var(--slate-700)" }}>{a.estrategia_recomendada}</p>
+        <ul className="list-clean">
+          <li>Canal: {a.canal_sugerido}</li>
+          <li>Mercadeo: {a.recomendacion_mercadeo}</li>
+        </ul>
+      </div>
     </div>
   );
 }
