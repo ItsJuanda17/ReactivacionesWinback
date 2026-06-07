@@ -13,7 +13,6 @@ export default function Layout() {
     <>
       <header className="navbar">
         <NavLink to="/" className="brand">
-          <span className="brand-dot">◆</span>
           Winback · Coomeva MP
         </NavLink>
         <nav style={{ display: "flex", gap: 4 }}>
