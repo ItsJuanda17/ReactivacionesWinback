@@ -1,0 +1,81 @@
+{
+  "name": "Winback A — Briefing diario al equipo (saliente)",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            { "field": "days", "triggerAtHour": 8, "triggerAtMinute": 0 }
+          ]
+        }
+      },
+      "id": "a0000000-0000-4000-8000-00000000000a",
+      "name": "Cada manana 8am",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [240, 300]
+    },
+    {
+      "parameters": {
+        "url": "http://host.docker.internal:8000/prospectos",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            { "name": "segmento", "value": "diamante" },
+            { "name": "limit", "value": "20" }
+          ]
+        },
+        "options": {}
+      },
+      "id": "b0000000-0000-4000-8000-00000000000b",
+      "name": "Top prospectos (modelo prioriza)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [480, 300]
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all().map(i => i.json);\nlet txt = `\\uD83D\\uDCCB *Winback — ${items.length} prospectos diamante para hoy*\\n\\n`;\nitems.forEach((p, i) => {\n  const prob = Math.round((p.prob_reactivacion || 0) * 100);\n  txt += `${i + 1}. ${p.nombre_completo} — ${p.ciudad} — ${prob}% — tel ${p.telefono}\\n`;\n});\nreturn [{ json: { texto: txt } }];"
+      },
+      "id": "c0000000-0000-4000-8000-00000000000c",
+      "name": "Armar briefing",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [720, 300]
+    },
+    {
+      "parameters": {
+        "chatId": "REEMPLAZAR_CHAT_ID_EQUIPO",
+        "text": "={{ $json.texto }}",
+        "additionalFields": {
+          "appendAttribution": false,
+          "parse_mode": "Markdown"
+        }
+      },
+      "id": "d0000000-0000-4000-8000-00000000000d",
+      "name": "Enviar briefing al equipo",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [960, 300],
+      "credentials": {
+        "telegramApi": {
+          "id": "REEMPLAZAR",
+          "name": "Telegram Winback"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Cada manana 8am": {
+      "main": [[{ "node": "Top prospectos (modelo prioriza)", "type": "main", "index": 0 }]]
+    },
+    "Top prospectos (modelo prioriza)": {
+      "main": [[{ "node": "Armar briefing", "type": "main", "index": 0 }]]
+    },
+    "Armar briefing": {
+      "main": [[{ "node": "Enviar briefing al equipo", "type": "main", "index": 0 }]]
+    }
+  },
+  "settings": { "executionOrder": "v1" },
+  "active": false
+}

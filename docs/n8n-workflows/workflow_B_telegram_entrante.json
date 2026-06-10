@@ -1,0 +1,140 @@
+{
+  "name": "Winback B — Conversacion Telegram (entrante)",
+  "nodes": [
+    {
+      "parameters": {
+        "updates": ["message"],
+        "additionalFields": {}
+      },
+      "id": "a1111111-1111-4111-8111-111111111111",
+      "name": "Telegram Trigger",
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.1,
+      "position": [240, 300],
+      "credentials": {
+        "telegramApi": {
+          "id": "REEMPLAZAR",
+          "name": "Telegram Winback"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://host.docker.internal:8000/chatbot/conversar",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ user_id: String($json.message.chat.id), texto: $json.message.text, canal: 'telegram' }) }}",
+        "options": {}
+      },
+      "id": "b2222222-2222-4222-8222-222222222222",
+      "name": "Conversar (motor_flujo)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [480, 300]
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+        "text": "={{ $json.mensaje }}{{ $json.opciones && $json.opciones.length ? '\\n\\nOpciones: ' + $json.opciones.join(' | ') : '' }}",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "id": "c3333333-3333-4333-8333-333333333333",
+      "name": "Responder al cliente",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [720, 200],
+      "credentials": {
+        "telegramApi": {
+          "id": "REEMPLAZAR",
+          "name": "Telegram Winback"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose"
+          },
+          "conditions": [
+            {
+              "id": "cond-1",
+              "leftValue": "={{ $json.estado }}",
+              "rightValue": "entrega_asesor",
+              "operator": { "type": "string", "operation": "equals" }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "d4444444-4444-4444-8444-444444444444",
+      "name": "Lead listo?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [720, 420]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://host.docker.internal:8000/gestiones",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ prospecto_id: String($('Telegram Trigger').item.json.message.chat.id), canal_contacto: 'telegram', resultado: 'interesado' }) }}",
+        "options": {}
+      },
+      "id": "e5555555-5555-4555-8555-555555555555",
+      "name": "Registrar gestion",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [960, 360]
+    },
+    {
+      "parameters": {
+        "chatId": "REEMPLAZAR_CHAT_ID_ASESOR",
+        "text": "=🔥 PROSPECTO LISTO (winback)\\nUsuario Telegram: {{ $('Telegram Trigger').item.json.message.chat.first_name }} (id {{ $('Telegram Trigger').item.json.message.chat.id }})\\nContactar en las proximas 2 horas.",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "id": "f6666666-6666-4666-8666-666666666666",
+      "name": "Avisar al asesor",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [960, 500],
+      "credentials": {
+        "telegramApi": {
+          "id": "REEMPLAZAR",
+          "name": "Telegram Winback"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Telegram Trigger": {
+      "main": [[{ "node": "Conversar (motor_flujo)", "type": "main", "index": 0 }]]
+    },
+    "Conversar (motor_flujo)": {
+      "main": [[
+        { "node": "Responder al cliente", "type": "main", "index": 0 },
+        { "node": "Lead listo?", "type": "main", "index": 0 }
+      ]]
+    },
+    "Lead listo?": {
+      "main": [
+        [
+          { "node": "Registrar gestion", "type": "main", "index": 0 },
+          { "node": "Avisar al asesor", "type": "main", "index": 0 }
+        ],
+        []
+      ]
+    }
+  },
+  "settings": { "executionOrder": "v1" },
+  "active": false
+}
